@@ -5,16 +5,15 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class PixPagamentoResponse {
+public class PagamentoWebhookRequest {
     
+    private Long idAgendamento;
     private String codigoTransacao;
     private String chavePix;
     private String nomeBeneficiario;
     private BigDecimal valor;
     private String descricao;
-    private String observacao;
-    private String status;
+    private LocalDateTime dataAgendamento;
     private LocalDateTime dataProcessamento;
-    private String qrCode;
-    private String qrCodeBase64;
+    private String status;
 } 

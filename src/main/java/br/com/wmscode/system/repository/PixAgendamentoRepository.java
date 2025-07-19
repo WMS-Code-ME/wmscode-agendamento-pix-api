@@ -9,9 +9,14 @@ import java.util.List;
 @ApplicationScoped
 public class PixAgendamentoRepository implements PanacheRepository<PixAgendamento> {
     
-    public List<PixAgendamento> findAgendamentosParaProcessar(LocalDateTime dataLimite) {
-        return find("status = ?1 AND dataAgendamento <= ?2", 
-                   PixAgendamento.StatusAgendamento.AGENDADO, dataLimite).list();
+    public List<PixAgendamento> findAgendamentosParaProcessar() {
+        return find("status = ?1 and dataAgendamento <= ?2", 
+                   PixAgendamento.StatusAgendamento.AGENDADO, LocalDateTime.now()).list();
+    }
+    
+    public List<PixAgendamento> findAgendamentosDoDia(LocalDateTime inicioDia, LocalDateTime fimDia) {
+        return find("status = ?1 and dataAgendamento >= ?2 and dataAgendamento <= ?3", 
+                   PixAgendamento.StatusAgendamento.AGENDADO, inicioDia, fimDia).list();
     }
     
     public List<PixAgendamento> findByStatus(PixAgendamento.StatusAgendamento status) {

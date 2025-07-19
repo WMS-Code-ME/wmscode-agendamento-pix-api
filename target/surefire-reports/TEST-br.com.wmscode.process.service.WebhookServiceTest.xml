@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="br.com.wmscode.experience.controller.PixAgendamentoControllerTest" time="6.686" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="br.com.wmscode.process.service.WebhookServiceTest" time="0.121" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -71,103 +71,313 @@
     <property name="io.netty.machineId" value="a0:d4:6d:c5:85:b3:ee:8f"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="listarAgendamentos_DeveRetornar200" classname="br.com.wmscode.experience.controller.PixAgendamentoControllerTest" time="2.906">
-    <system-out><![CDATA[2025-07-19 12:23:15,149 INFO  [org.hib.jpa.int.uti.LogHelper] (main) HHH000204: Processing PersistenceUnitInfo [name: <default>]
-2025-07-19 12:23:15,486 INFO  [org.hib.Version] (main) HHH000412: Hibernate ORM core version 7.0.6.Final
-2025-07-19 12:23:15,906 INFO  [org.hib.orm.con.pooling] (main) HHH10001005: Database info:
-	Database JDBC URL [undefined/unknown]
-	Database driver: undefined/unknown
-	Database version: 2.3.230
-	Autocommit mode: undefined/unknown
-	Isolation level: <unknown>
-	Pool: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-07-19 12:23:16,220 INFO  [org.hib.val.int.uti.Version] (main) HV000001: Hibernate Validator 9.0.1.Final
-2025-07-19 12:23:16,777 WARN  [io.qua.config] (main) Unrecognized configuration key "quarkus.jsonb.zero-time-parse-defaulting" was provided; it will be ignored; verify that the dependency extension for this configuration is set or that you did not make a typo
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mglobal&amp#27;[0m temporary &amp#27;[34mtable&amp#27;[0m HTE_webhooks(rn_ &amp#27;[34minteger&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m, data_atualizacao &amp#27;[34mtimestamp&amp#27;[0m(6), data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6), id &amp#27;[34mbigint&amp#27;[0m, body TEXT, descricao &amp#27;[34mvarchar&amp#27;[0m(255), login &amp#27;[34mvarchar&amp#27;[0m(255), senha &amp#27;[34mvarchar&amp#27;[0m(255), url &amp#27;[34mvarchar&amp#27;[0m(255), evento enum (&amp#27;[36m'PAGAMENTO_PIX'&amp#27;[0m), status enum (&amp#27;[36m'ATIVO'&amp#27;[0m, &amp#27;[36m'INATIVO'&amp#27;[0m), &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (rn_)) TRANSACTIONAL
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mglobal&amp#27;[0m temporary &amp#27;[34mtable&amp#27;[0m HTE_pix_agendamentos(rn_ &amp#27;[34minteger&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m, valor &amp#27;[34mnumeric&amp#27;[0m(10, 2), data_agendamento &amp#27;[34mtimestamp&amp#27;[0m(6), data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6), data_processamento &amp#27;[34mtimestamp&amp#27;[0m(6), id &amp#27;[34mbigint&amp#27;[0m, codigo_transacao &amp#27;[34mvarchar&amp#27;[0m(50), descricao &amp#27;[34mvarchar&amp#27;[0m(140), observacao &amp#27;[34mvarchar&amp#27;[0m(500), chave_pix &amp#27;[34mvarchar&amp#27;[0m(255), nome_beneficiario &amp#27;[34mvarchar&amp#27;[0m(255), status enum (&amp#27;[36m'AGENDADO'&amp#27;[0m, &amp#27;[36m'CANCELADO'&amp#27;[0m, &amp#27;[36m'ENVIADO'&amp#27;[0m, &amp#27;[36m'ERRO'&amp#27;[0m, &amp#27;[36m'PROCESSADO'&amp#27;[0m, &amp#27;[36m'PROCESSANDO'&amp#27;[0m), &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (rn_)) TRANSACTIONAL
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34mtable&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m pix_agendamentos &amp#27;[34mcascade&amp#27;[0m 
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34mtable&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m webhooks &amp#27;[34mcascade&amp#27;[0m 
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34msequence&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m pix_agendamentos_SEQ
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34msequence&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m webhooks_SEQ
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34msequence&amp#27;[0m pix_agendamentos_SEQ &amp#27;[34mstart&amp#27;[0m &amp#27;[34mwith&amp#27;[0m 1 &amp#27;[34mincrement&amp#27;[0m &amp#27;[34mby&amp#27;[0m 50
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34msequence&amp#27;[0m webhooks_SEQ &amp#27;[34mstart&amp#27;[0m &amp#27;[34mwith&amp#27;[0m 1 &amp#27;[34mincrement&amp#27;[0m &amp#27;[34mby&amp#27;[0m 50
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mtable&amp#27;[0m pix_agendamentos (
-        valor &amp#27;[34mnumeric&amp#27;[0m(10,2) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        data_agendamento &amp#27;[34mtimestamp&amp#27;[0m(6) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        data_processamento &amp#27;[34mtimestamp&amp#27;[0m(6),
-        id &amp#27;[34mbigint&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        codigo_transacao &amp#27;[34mvarchar&amp#27;[0m(50),
-        descricao &amp#27;[34mvarchar&amp#27;[0m(140) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        observacao &amp#27;[34mvarchar&amp#27;[0m(500),
-        chave_pix &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        nome_beneficiario &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        status enum (&amp#27;[36m'AGENDADO'&amp#27;[0m,&amp#27;[36m'CANCELADO'&amp#27;[0m,&amp#27;[36m'ENVIADO'&amp#27;[0m,&amp#27;[36m'ERRO'&amp#27;[0m,&amp#27;[36m'PROCESSADO'&amp#27;[0m,&amp#27;[36m'PROCESSANDO'&amp#27;[0m) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (id)
-    )
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mtable&amp#27;[0m webhooks (
-        data_atualizacao &amp#27;[34mtimestamp&amp#27;[0m(6),
-        data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        id &amp#27;[34mbigint&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        body TEXT,
-        descricao &amp#27;[34mvarchar&amp#27;[0m(255),
-        login &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        senha &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        url &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        evento enum (&amp#27;[36m'PAGAMENTO_PIX'&amp#27;[0m) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        status enum (&amp#27;[36m'ATIVO'&amp#27;[0m,&amp#27;[36m'INATIVO'&amp#27;[0m) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (id)
-    )
-2025-07-19 12:23:18,365 INFO  [io.quarkus] (main) pix-scheduler-api 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.24.4) started in 9.015s. Listening on: http://localhost:8081
-2025-07-19 12:23:18,365 INFO  [io.quarkus] (main) Profile test activated. 
-2025-07-19 12:23:18,365 INFO  [io.quarkus] (main) Installed features: [agroal, cdi, compose, flyway, hibernate-orm, hibernate-orm-panache, hibernate-validator, jdbc-h2, jdbc-postgresql, narayana-jta, rest, rest-client, rest-client-jackson, rest-jsonb, scheduler, smallrye-context-propagation, smallrye-openapi, swagger-ui, vertx]
+  <testcase name="testInativarWebhook" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.013">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:25,025 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
 &amp#27;[35m[Hibernate]&amp#27;[0m 
     &amp#27;[34mselect&amp#27;[0m
-        pa1_0.id,
-        pa1_0.chave_pix,
-        pa1_0.codigo_transacao,
-        pa1_0.data_agendamento,
-        pa1_0.data_criacao,
-        pa1_0.data_processamento,
-        pa1_0.descricao,
-        pa1_0.nome_beneficiario,
-        pa1_0.observacao,
-        pa1_0.status,
-        pa1_0.valor 
+        count(*) 
     &amp#27;[34mfrom&amp#27;[0m
-        pix_agendamentos pa1_0
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,029 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 8
+2025-07-19 12:23:25,029 INFO  [br.com.wms.pro.ser.WebhookService] (main) Inativando webhook ID: 8
+2025-07-19 12:23:25,029 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook inativado com sucesso
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mupdate&amp#27;[0m
+        webhooks 
+    &amp#27;[34mset&amp#27;[0m
+        body=?,
+        data_atualizacao=?,
+        data_criacao=?,
+        descricao=?,
+        evento=?,
+        login=?,
+        senha=?,
+        status=?,
+        url=? 
+    &amp#27;[34mwhere&amp#27;[0m
+        id=?
 ]]></system-out>
   </testcase>
-  <testcase name="buscarPorId_QuandoNaoExiste_DeveRetornar404" classname="br.com.wmscode.experience.controller.PixAgendamentoControllerTest" time="0.057">
+  <testcase name="testBuscarWebhook" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.008">
     <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mselect&amp#27;[0m
-        pa1_0.id,
-        pa1_0.chave_pix,
-        pa1_0.codigo_transacao,
-        pa1_0.data_agendamento,
-        pa1_0.data_criacao,
-        pa1_0.data_processamento,
-        pa1_0.descricao,
-        pa1_0.nome_beneficiario,
-        pa1_0.observacao,
-        pa1_0.status,
-        pa1_0.valor 
+    &amp#27;[34mdelete&amp#27;[0m 
     &amp#27;[34mfrom&amp#27;[0m
-        pix_agendamentos pa1_0 
+        webhooks w1_0
+2025-07-19 12:23:25,039 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
     &amp#27;[34mwhere&amp#27;[0m
-        pa1_0.id=?
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,041 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 9
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+]]></system-out>
+  </testcase>
+  <testcase name="testCriarWebhook" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.009">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:25,049 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,052 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 10
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+]]></system-out>
+  </testcase>
+  <testcase name="testDeletarWebhook" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.019">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:25,060 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,063 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 11
+2025-07-19 12:23:25,063 INFO  [br.com.wms.pro.ser.WebhookService] (main) Deletando webhook ID: 11
+2025-07-19 12:23:25,066 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook deletado com sucesso
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks 
+    &amp#27;[34mwhere&amp#27;[0m
+        id=?
+]]></system-out>
+  </testcase>
+  <testcase name="testCriarWebhookDuplicado" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.011">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:25,080 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,083 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 12
+2025-07-19 12:23:25,083 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+]]></system-out>
+  </testcase>
+  <testcase name="testAtivarWebhook" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.016">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:25,093 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,097 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 13
+2025-07-19 12:23:25,097 INFO  [br.com.wms.pro.ser.WebhookService] (main) Inativando webhook ID: 13
+2025-07-19 12:23:25,098 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook inativado com sucesso
+2025-07-19 12:23:25,098 INFO  [br.com.wms.pro.ser.WebhookService] (main) Ativando webhook ID: 13
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mupdate&amp#27;[0m
+        webhooks 
+    &amp#27;[34mset&amp#27;[0m
+        body=?,
+        data_atualizacao=?,
+        data_criacao=?,
+        descricao=?,
+        evento=?,
+        login=?,
+        senha=?,
+        status=?,
+        url=? 
+    &amp#27;[34mwhere&amp#27;[0m
+        id=?
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.id<>?
+2025-07-19 12:23:25,103 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook ativado com sucesso
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mupdate&amp#27;[0m
+        webhooks 
+    &amp#27;[34mset&amp#27;[0m
+        body=?,
+        data_atualizacao=?,
+        data_criacao=?,
+        descricao=?,
+        evento=?,
+        login=?,
+        senha=?,
+        status=?,
+        url=? 
+    &amp#27;[34mwhere&amp#27;[0m
+        id=?
+]]></system-out>
+  </testcase>
+  <testcase name="testListarWebhooks" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.01">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:25,111 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,114 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 14
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        w1_0.id,
+        w1_0.body,
+        w1_0.data_atualizacao,
+        w1_0.data_criacao,
+        w1_0.descricao,
+        w1_0.evento,
+        w1_0.login,
+        w1_0.senha,
+        w1_0.status,
+        w1_0.url 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+]]></system-out>
+  </testcase>
+  <testcase name="testAtualizarWebhook" classname="br.com.wmscode.process.service.WebhookServiceTest" time="0.015">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:25,124 INFO  [br.com.wms.pro.ser.WebhookService] (main) Criando webhook para evento: PAGAMENTO_PIX
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:25,127 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook criado com ID: 15
+2025-07-19 12:23:25,127 INFO  [br.com.wms.pro.ser.WebhookService] (main) Atualizando webhook ID: 15
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        count(*) 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.id<>?
+2025-07-19 12:23:25,131 INFO  [br.com.wms.pro.ser.WebhookService] (main) Webhook atualizado com sucesso
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mupdate&amp#27;[0m
+        webhooks 
+    &amp#27;[34mset&amp#27;[0m
+        body=?,
+        data_atualizacao=?,
+        data_criacao=?,
+        descricao=?,
+        evento=?,
+        login=?,
+        senha=?,
+        status=?,
+        url=? 
+    &amp#27;[34mwhere&amp#27;[0m
+        id=?
 ]]></system-out>
   </testcase>
 </testsuite>

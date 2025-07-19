@@ -41,7 +41,12 @@ public class PixAgendamento extends PanacheEntity {
     private String codigoTransacao;
     
     public enum StatusAgendamento {
-        AGENDADO, PROCESSANDO, PROCESSADO, ERRO, CANCELADO
+        AGENDADO,
+        PROCESSANDO,
+        PROCESSADO,
+        ENVIADO,
+        ERRO,
+        CANCELADO
     }
     
     public String getChavePix() {
@@ -122,5 +127,13 @@ public class PixAgendamento extends PanacheEntity {
     
     public void setCodigoTransacao(String codigoTransacao) {
         this.codigoTransacao = codigoTransacao;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
 } 

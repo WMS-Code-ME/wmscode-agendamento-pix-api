@@ -8,7 +8,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-19T11:05:02-0300",
+    date = "2025-07-19T12:23:02-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.7 (Ubuntu)"
 )
 @ApplicationScoped
@@ -43,7 +43,7 @@ public class PixAgendamentoMapperImpl implements PixAgendamentoMapper {
 
         PixAgendamentoResponse pixAgendamentoResponse = new PixAgendamentoResponse();
 
-        pixAgendamentoResponse.setId( entity.id );
+        pixAgendamentoResponse.setId( entity.getId() );
         pixAgendamentoResponse.setChavePix( entity.getChavePix() );
         pixAgendamentoResponse.setNomeBeneficiario( entity.getNomeBeneficiario() );
         pixAgendamentoResponse.setValor( entity.getValor() );

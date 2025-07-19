@@ -1,3 +1,5 @@
 br/com/wmscode/experience/controller/PixAgendamentoControllerTest.class
-br/com/wmscode/process/service/PixPagamentoServiceTest.class
+br/com/wmscode/experience/controller/WebhookControllerTest.class
+br/com/wmscode/process/service/WebhookServiceTest.class
+br/com/wmscode/process/service/BatchServiceTest.class
 br/com/wmscode/process/service/PixAgendamentoServiceTest.class

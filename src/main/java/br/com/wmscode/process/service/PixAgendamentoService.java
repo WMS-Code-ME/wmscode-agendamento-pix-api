@@ -9,6 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -84,5 +85,18 @@ public class PixAgendamentoService {
         agendamento.setStatus(PixAgendamento.StatusAgendamento.ERRO);
         agendamento.setDataProcessamento(java.time.LocalDateTime.now());
         repository.persist(agendamento);
+    }
+
+    public List<PixAgendamento> getAgendamentosParaProcessar() {
+        return repository.findAgendamentosParaProcessar();
+    }
+    
+    @Transactional
+    public void atualizarAgendamento(PixAgendamento agendamento) {
+        repository.persist(agendamento);
+    }
+    
+    public List<PixAgendamento> findByStatus(PixAgendamento.StatusAgendamento status) {
+        return repository.findByStatus(status);
     }
 } 

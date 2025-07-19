@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="br.com.wmscode.experience.controller.PixAgendamentoControllerTest" time="6.686" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="br.com.wmscode.process.service.BatchServiceTest" time="2.142" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -71,87 +71,29 @@
     <property name="io.netty.machineId" value="a0:d4:6d:c5:85:b3:ee:8f"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="listarAgendamentos_DeveRetornar200" classname="br.com.wmscode.experience.controller.PixAgendamentoControllerTest" time="2.906">
-    <system-out><![CDATA[2025-07-19 12:23:15,149 INFO  [org.hib.jpa.int.uti.LogHelper] (main) HHH000204: Processing PersistenceUnitInfo [name: <default>]
-2025-07-19 12:23:15,486 INFO  [org.hib.Version] (main) HHH000412: Hibernate ORM core version 7.0.6.Final
-2025-07-19 12:23:15,906 INFO  [org.hib.orm.con.pooling] (main) HHH10001005: Database info:
-	Database JDBC URL [undefined/unknown]
-	Database driver: undefined/unknown
-	Database version: 2.3.230
-	Autocommit mode: undefined/unknown
-	Isolation level: <unknown>
-	Pool: undefined/unknown
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2025-07-19 12:23:16,220 INFO  [org.hib.val.int.uti.Version] (main) HV000001: Hibernate Validator 9.0.1.Final
-2025-07-19 12:23:16,777 WARN  [io.qua.config] (main) Unrecognized configuration key "quarkus.jsonb.zero-time-parse-defaulting" was provided; it will be ignored; verify that the dependency extension for this configuration is set or that you did not make a typo
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mglobal&amp#27;[0m temporary &amp#27;[34mtable&amp#27;[0m HTE_webhooks(rn_ &amp#27;[34minteger&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m, data_atualizacao &amp#27;[34mtimestamp&amp#27;[0m(6), data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6), id &amp#27;[34mbigint&amp#27;[0m, body TEXT, descricao &amp#27;[34mvarchar&amp#27;[0m(255), login &amp#27;[34mvarchar&amp#27;[0m(255), senha &amp#27;[34mvarchar&amp#27;[0m(255), url &amp#27;[34mvarchar&amp#27;[0m(255), evento enum (&amp#27;[36m'PAGAMENTO_PIX'&amp#27;[0m), status enum (&amp#27;[36m'ATIVO'&amp#27;[0m, &amp#27;[36m'INATIVO'&amp#27;[0m), &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (rn_)) TRANSACTIONAL
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mglobal&amp#27;[0m temporary &amp#27;[34mtable&amp#27;[0m HTE_pix_agendamentos(rn_ &amp#27;[34minteger&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m, valor &amp#27;[34mnumeric&amp#27;[0m(10, 2), data_agendamento &amp#27;[34mtimestamp&amp#27;[0m(6), data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6), data_processamento &amp#27;[34mtimestamp&amp#27;[0m(6), id &amp#27;[34mbigint&amp#27;[0m, codigo_transacao &amp#27;[34mvarchar&amp#27;[0m(50), descricao &amp#27;[34mvarchar&amp#27;[0m(140), observacao &amp#27;[34mvarchar&amp#27;[0m(500), chave_pix &amp#27;[34mvarchar&amp#27;[0m(255), nome_beneficiario &amp#27;[34mvarchar&amp#27;[0m(255), status enum (&amp#27;[36m'AGENDADO'&amp#27;[0m, &amp#27;[36m'CANCELADO'&amp#27;[0m, &amp#27;[36m'ENVIADO'&amp#27;[0m, &amp#27;[36m'ERRO'&amp#27;[0m, &amp#27;[36m'PROCESSADO'&amp#27;[0m, &amp#27;[36m'PROCESSANDO'&amp#27;[0m), &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (rn_)) TRANSACTIONAL
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34mtable&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m pix_agendamentos &amp#27;[34mcascade&amp#27;[0m 
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34mtable&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m webhooks &amp#27;[34mcascade&amp#27;[0m 
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34msequence&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m pix_agendamentos_SEQ
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mdrop&amp#27;[0m &amp#27;[34msequence&amp#27;[0m &amp#27;[34mif&amp#27;[0m &amp#27;[34mexists&amp#27;[0m webhooks_SEQ
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34msequence&amp#27;[0m pix_agendamentos_SEQ &amp#27;[34mstart&amp#27;[0m &amp#27;[34mwith&amp#27;[0m 1 &amp#27;[34mincrement&amp#27;[0m &amp#27;[34mby&amp#27;[0m 50
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34msequence&amp#27;[0m webhooks_SEQ &amp#27;[34mstart&amp#27;[0m &amp#27;[34mwith&amp#27;[0m 1 &amp#27;[34mincrement&amp#27;[0m &amp#27;[34mby&amp#27;[0m 50
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mtable&amp#27;[0m pix_agendamentos (
-        valor &amp#27;[34mnumeric&amp#27;[0m(10,2) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        data_agendamento &amp#27;[34mtimestamp&amp#27;[0m(6) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        data_processamento &amp#27;[34mtimestamp&amp#27;[0m(6),
-        id &amp#27;[34mbigint&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        codigo_transacao &amp#27;[34mvarchar&amp#27;[0m(50),
-        descricao &amp#27;[34mvarchar&amp#27;[0m(140) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        observacao &amp#27;[34mvarchar&amp#27;[0m(500),
-        chave_pix &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        nome_beneficiario &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        status enum (&amp#27;[36m'AGENDADO'&amp#27;[0m,&amp#27;[36m'CANCELADO'&amp#27;[0m,&amp#27;[36m'ENVIADO'&amp#27;[0m,&amp#27;[36m'ERRO'&amp#27;[0m,&amp#27;[36m'PROCESSADO'&amp#27;[0m,&amp#27;[36m'PROCESSANDO'&amp#27;[0m) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (id)
-    )
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mcreate&amp#27;[0m &amp#27;[34mtable&amp#27;[0m webhooks (
-        data_atualizacao &amp#27;[34mtimestamp&amp#27;[0m(6),
-        data_criacao &amp#27;[34mtimestamp&amp#27;[0m(6) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        id &amp#27;[34mbigint&amp#27;[0m &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        body TEXT,
-        descricao &amp#27;[34mvarchar&amp#27;[0m(255),
-        login &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        senha &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        url &amp#27;[34mvarchar&amp#27;[0m(255) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        evento enum (&amp#27;[36m'PAGAMENTO_PIX'&amp#27;[0m) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        status enum (&amp#27;[36m'ATIVO'&amp#27;[0m,&amp#27;[36m'INATIVO'&amp#27;[0m) &amp#27;[34mnot&amp#27;[0m &amp#27;[34mnull&amp#27;[0m,
-        &amp#27;[34mprimary&amp#27;[0m &amp#27;[34mkey&amp#27;[0m (id)
-    )
-2025-07-19 12:23:18,365 INFO  [io.quarkus] (main) pix-scheduler-api 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.24.4) started in 9.015s. Listening on: http://localhost:8081
-2025-07-19 12:23:18,365 INFO  [io.quarkus] (main) Profile test activated. 
-2025-07-19 12:23:18,365 INFO  [io.quarkus] (main) Installed features: [agroal, cdi, compose, flyway, hibernate-orm, hibernate-orm-panache, hibernate-validator, jdbc-h2, jdbc-postgresql, narayana-jta, rest, rest-client, rest-client-jackson, rest-jsonb, scheduler, smallrye-context-propagation, smallrye-openapi, swagger-ui, vertx]
-&amp#27;[35m[Hibernate]&amp#27;[0m 
-    &amp#27;[34mselect&amp#27;[0m
-        pa1_0.id,
-        pa1_0.chave_pix,
-        pa1_0.codigo_transacao,
-        pa1_0.data_agendamento,
-        pa1_0.data_criacao,
-        pa1_0.data_processamento,
-        pa1_0.descricao,
-        pa1_0.nome_beneficiario,
-        pa1_0.observacao,
-        pa1_0.status,
-        pa1_0.valor 
+  <testcase name="testProcessarPagamentosAgendadosSemWebhooks" classname="br.com.wmscode.process.service.BatchServiceTest" time="0.046">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
     &amp#27;[34mfrom&amp#27;[0m
         pix_agendamentos pa1_0
-]]></system-out>
-  </testcase>
-  <testcase name="buscarPorId_QuandoNaoExiste_DeveRetornar404" classname="br.com.wmscode.experience.controller.PixAgendamentoControllerTest" time="0.057">
-    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        &amp#27;[34mnext&amp#27;[0m &amp#27;[34mvalue&amp#27;[0m 
+    &amp#27;[34mfor&amp#27;[0m
+        pix_agendamentos_SEQ
+2025-07-19 12:23:22,813 INFO  [br.com.wms.pro.ser.BatchService] (main) Iniciando processamento diário de pagamentos agendados
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        pix_agendamentos
+        (chave_pix, codigo_transacao, data_agendamento, data_criacao, data_processamento, descricao, nome_beneficiario, observacao, status, valor, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
     &amp#27;[34mselect&amp#27;[0m
         pa1_0.id,
         pa1_0.chave_pix,
@@ -167,7 +109,239 @@
     &amp#27;[34mfrom&amp#27;[0m
         pix_agendamentos pa1_0 
     &amp#27;[34mwhere&amp#27;[0m
-        pa1_0.id=?
+        pa1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento>=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento<=?
+2025-07-19 12:23:22,827 INFO  [br.com.wms.pro.ser.BatchService] (main) Encontrados 1 agendamentos para processar no dia: 2025-07-19
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        w1_0.id,
+        w1_0.body,
+        w1_0.data_atualizacao,
+        w1_0.data_criacao,
+        w1_0.descricao,
+        w1_0.evento,
+        w1_0.login,
+        w1_0.senha,
+        w1_0.status,
+        w1_0.url 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:22,834 WARN  [br.com.wms.pro.ser.BatchService] (main) Nenhum webhook ativo encontrado para o evento PAGAMENTO_PIX
+]]></system-out>
+  </testcase>
+  <testcase name="testProcessarPagamentosAgendadosApenasDoDia" classname="br.com.wmscode.process.service.BatchServiceTest" time="1.376">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        pix_agendamentos pa1_0
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:22,854 INFO  [br.com.wms.pro.ser.BatchService] (main) Iniciando processamento diário de pagamentos agendados
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        pix_agendamentos
+        (chave_pix, codigo_transacao, data_agendamento, data_criacao, data_processamento, descricao, nome_beneficiario, observacao, status, valor, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        pix_agendamentos
+        (chave_pix, codigo_transacao, data_agendamento, data_criacao, data_processamento, descricao, nome_beneficiario, observacao, status, valor, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        pa1_0.id,
+        pa1_0.chave_pix,
+        pa1_0.codigo_transacao,
+        pa1_0.data_agendamento,
+        pa1_0.data_criacao,
+        pa1_0.data_processamento,
+        pa1_0.descricao,
+        pa1_0.nome_beneficiario,
+        pa1_0.observacao,
+        pa1_0.status,
+        pa1_0.valor 
+    &amp#27;[34mfrom&amp#27;[0m
+        pix_agendamentos pa1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        pa1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento>=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento<=?
+2025-07-19 12:23:22,861 INFO  [br.com.wms.pro.ser.BatchService] (main) Encontrados 1 agendamentos para processar no dia: 2025-07-19
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        w1_0.id,
+        w1_0.body,
+        w1_0.data_atualizacao,
+        w1_0.data_criacao,
+        w1_0.descricao,
+        w1_0.evento,
+        w1_0.login,
+        w1_0.senha,
+        w1_0.status,
+        w1_0.url 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:22,863 INFO  [br.com.wms.pro.ser.BatchService] (main) Encontrados 1 webhooks ativos para notificação
+2025-07-19 12:23:22,864 INFO  [br.com.wms.pro.ser.BatchService] (main) Processando agendamento ID: 2 - Valor: 100.00 - Data: 2025-07-19T12:23:22.854328028
+2025-07-19 12:23:22,916 DEBUG [br.com.wms.pro.ser.BatchService] (main) Usando payload padrão para webhook
+2025-07-19 12:23:24,218 DEBUG [br.com.wms.pro.ser.BatchService] (main) Webhook https://httpbin.org/post respondeu com sucesso: 200
+2025-07-19 12:23:24,219 DEBUG [br.com.wms.pro.ser.BatchService] (main) Agendamento 2 enviado com sucesso para webhook: https://httpbin.org/post
+2025-07-19 12:23:24,219 INFO  [br.com.wms.pro.ser.BatchService] (main) Agendamento 2 marcado como ENVIADO
+2025-07-19 12:23:24,219 INFO  [br.com.wms.pro.ser.BatchService] (main) Processamento diário concluído
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mupdate&amp#27;[0m
+        pix_agendamentos 
+    &amp#27;[34mset&amp#27;[0m
+        chave_pix=?,
+        codigo_transacao=?,
+        data_agendamento=?,
+        data_criacao=?,
+        data_processamento=?,
+        descricao=?,
+        nome_beneficiario=?,
+        observacao=?,
+        status=?,
+        valor=? 
+    &amp#27;[34mwhere&amp#27;[0m
+        id=?
+]]></system-out>
+  </testcase>
+  <testcase name="testProcessarPagamentosAgendadosComWebhook" classname="br.com.wmscode.process.service.BatchServiceTest" time="0.702">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        pix_agendamentos pa1_0
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:24,231 INFO  [br.com.wms.pro.ser.BatchService] (main) Iniciando processamento diário de pagamentos agendados
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        webhooks
+        (body, data_atualizacao, data_criacao, descricao, evento, login, senha, status, url, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34minsert&amp#27;[0m 
+    &amp#27;[34minto&amp#27;[0m
+        pix_agendamentos
+        (chave_pix, codigo_transacao, data_agendamento, data_criacao, data_processamento, descricao, nome_beneficiario, observacao, status, valor, id) 
+    &amp#27;[34mvalues&amp#27;[0m
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        pa1_0.id,
+        pa1_0.chave_pix,
+        pa1_0.codigo_transacao,
+        pa1_0.data_agendamento,
+        pa1_0.data_criacao,
+        pa1_0.data_processamento,
+        pa1_0.descricao,
+        pa1_0.nome_beneficiario,
+        pa1_0.observacao,
+        pa1_0.status,
+        pa1_0.valor 
+    &amp#27;[34mfrom&amp#27;[0m
+        pix_agendamentos pa1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        pa1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento>=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento<=?
+2025-07-19 12:23:24,234 INFO  [br.com.wms.pro.ser.BatchService] (main) Encontrados 1 agendamentos para processar no dia: 2025-07-19
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        w1_0.id,
+        w1_0.body,
+        w1_0.data_atualizacao,
+        w1_0.data_criacao,
+        w1_0.descricao,
+        w1_0.evento,
+        w1_0.login,
+        w1_0.senha,
+        w1_0.status,
+        w1_0.url 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        w1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m w1_0.evento=?
+2025-07-19 12:23:24,235 INFO  [br.com.wms.pro.ser.BatchService] (main) Encontrados 1 webhooks ativos para notificação
+2025-07-19 12:23:24,235 INFO  [br.com.wms.pro.ser.BatchService] (main) Processando agendamento ID: 4 - Valor: 100.00 - Data: 2025-07-19T12:23:24.231018109
+2025-07-19 12:23:24,236 DEBUG [br.com.wms.pro.ser.BatchService] (main) Usando payload padrão para webhook
+2025-07-19 12:23:24,924 DEBUG [br.com.wms.pro.ser.BatchService] (main) Webhook https://httpbin.org/post respondeu com sucesso: 200
+2025-07-19 12:23:24,924 DEBUG [br.com.wms.pro.ser.BatchService] (main) Agendamento 4 enviado com sucesso para webhook: https://httpbin.org/post
+2025-07-19 12:23:24,925 INFO  [br.com.wms.pro.ser.BatchService] (main) Agendamento 4 marcado como ENVIADO
+2025-07-19 12:23:24,925 INFO  [br.com.wms.pro.ser.BatchService] (main) Processamento diário concluído
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mupdate&amp#27;[0m
+        pix_agendamentos 
+    &amp#27;[34mset&amp#27;[0m
+        chave_pix=?,
+        codigo_transacao=?,
+        data_agendamento=?,
+        data_criacao=?,
+        data_processamento=?,
+        descricao=?,
+        nome_beneficiario=?,
+        observacao=?,
+        status=?,
+        valor=? 
+    &amp#27;[34mwhere&amp#27;[0m
+        id=?
+]]></system-out>
+  </testcase>
+  <testcase name="testProcessarPagamentosAgendadosSemAgendamentos" classname="br.com.wmscode.process.service.BatchServiceTest" time="0.006">
+    <system-out><![CDATA[&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        pix_agendamentos pa1_0
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mdelete&amp#27;[0m 
+    &amp#27;[34mfrom&amp#27;[0m
+        webhooks w1_0
+2025-07-19 12:23:24,932 INFO  [br.com.wms.pro.ser.BatchService] (main) Iniciando processamento diário de pagamentos agendados
+&amp#27;[35m[Hibernate]&amp#27;[0m 
+    &amp#27;[34mselect&amp#27;[0m
+        pa1_0.id,
+        pa1_0.chave_pix,
+        pa1_0.codigo_transacao,
+        pa1_0.data_agendamento,
+        pa1_0.data_criacao,
+        pa1_0.data_processamento,
+        pa1_0.descricao,
+        pa1_0.nome_beneficiario,
+        pa1_0.observacao,
+        pa1_0.status,
+        pa1_0.valor 
+    &amp#27;[34mfrom&amp#27;[0m
+        pix_agendamentos pa1_0 
+    &amp#27;[34mwhere&amp#27;[0m
+        pa1_0.status=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento>=? 
+        &amp#27;[34mand&amp#27;[0m pa1_0.data_agendamento<=?
+2025-07-19 12:23:24,934 INFO  [br.com.wms.pro.ser.BatchService] (main) Nenhum agendamento encontrado para o dia: 2025-07-19
 ]]></system-out>
   </testcase>
 </testsuite>

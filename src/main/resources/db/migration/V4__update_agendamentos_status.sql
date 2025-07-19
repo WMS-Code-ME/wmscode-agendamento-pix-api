@@ -1,0 +1,3 @@
+-- Atualizar agendamentos com status PROCESSADO para ENVIADO se necessário
+-- Esta migração é opcional e pode ser executada para manter consistência
+-- UPDATE pix_agendamentos SET status = 'ENVIADO' WHERE status = 'PROCESSADO'; 

@@ -9,18 +9,19 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.NotFoundException;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class PixAgendamentoService {
     
+    private final PixAgendamentoRepository repository;
+    private final PixAgendamentoMapper mapper;
+
     @Inject
-    PixAgendamentoRepository repository;
-    
-    @Inject
-    PixAgendamentoMapper mapper;
+    public PixAgendamentoService(PixAgendamentoRepository repository, PixAgendamentoMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
     
     @Transactional
     public PixAgendamentoResponse criarAgendamento(PixAgendamentoRequest request) {
@@ -38,19 +39,19 @@ public class PixAgendamentoService {
     public List<PixAgendamentoResponse> listarTodos() {
         return repository.listAll().stream()
             .map(mapper::toResponse)
-            .collect(Collectors.toList());
+            .toList();
     }
     
     public List<PixAgendamentoResponse> buscarPorStatus(PixAgendamento.StatusAgendamento status) {
         return repository.findByStatus(status).stream()
             .map(mapper::toResponse)
-            .collect(Collectors.toList());
+            .toList();
     }
     
     public List<PixAgendamentoResponse> buscarPorChavePix(String chavePix) {
         return repository.findByChavePix(chavePix).stream()
             .map(mapper::toResponse)
-            .collect(Collectors.toList());
+            .toList();
     }
     
     @Transactional

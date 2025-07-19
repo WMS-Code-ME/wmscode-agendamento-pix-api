@@ -8,8 +8,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-19T12:23:02-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.7 (Ubuntu)"
+    date = "2025-07-19T15:18:59-0300",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @ApplicationScoped
 public class PixAgendamentoMapperImpl implements PixAgendamentoMapper {
@@ -43,19 +43,19 @@ public class PixAgendamentoMapperImpl implements PixAgendamentoMapper {
 
         PixAgendamentoResponse pixAgendamentoResponse = new PixAgendamentoResponse();
 
-        pixAgendamentoResponse.setId( entity.getId() );
         pixAgendamentoResponse.setChavePix( entity.getChavePix() );
-        pixAgendamentoResponse.setNomeBeneficiario( entity.getNomeBeneficiario() );
-        pixAgendamentoResponse.setValor( entity.getValor() );
-        pixAgendamentoResponse.setDescricao( entity.getDescricao() );
+        pixAgendamentoResponse.setCodigoTransacao( entity.getCodigoTransacao() );
         pixAgendamentoResponse.setDataAgendamento( entity.getDataAgendamento() );
+        pixAgendamentoResponse.setDataCriacao( entity.getDataCriacao() );
+        pixAgendamentoResponse.setDataProcessamento( entity.getDataProcessamento() );
+        pixAgendamentoResponse.setDescricao( entity.getDescricao() );
+        pixAgendamentoResponse.setId( entity.getId() );
+        pixAgendamentoResponse.setNomeBeneficiario( entity.getNomeBeneficiario() );
         pixAgendamentoResponse.setObservacao( entity.getObservacao() );
         if ( entity.getStatus() != null ) {
             pixAgendamentoResponse.setStatus( entity.getStatus().name() );
         }
-        pixAgendamentoResponse.setDataCriacao( entity.getDataCriacao() );
-        pixAgendamentoResponse.setDataProcessamento( entity.getDataProcessamento() );
-        pixAgendamentoResponse.setCodigoTransacao( entity.getCodigoTransacao() );
+        pixAgendamentoResponse.setValor( entity.getValor() );
 
         return pixAgendamentoResponse;
     }

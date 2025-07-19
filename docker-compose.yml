@@ -34,3 +34,6 @@ volumes:
 networks:
   pix_network:
     driver: bridge 
+
+
+    

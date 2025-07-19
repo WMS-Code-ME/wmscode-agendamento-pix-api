@@ -1,89 +1,125 @@
-# 💸 API de Agendamentos de PIX
+# API de Agendamentos PIX
 
-Projeto desenvolvido com **Java 21** e **Quarkus Framework** que oferece uma API robusta e segura para agendamento de transferências via **PIX**, com autenticação, agendamento inteligente, execução automática, integração com webhooks e comunicação com sistemas financeiros externos.
+API desenvolvida em Quarkus para agendamento e processamento automático de pagamentos PIX.
 
----
+## Arquitetura
 
-## 📌 Visão Geral
+A aplicação segue uma arquitetura em camadas:
 
-A API de Agendamentos de PIX tem como objetivo permitir que usuários agendem pagamentos via PIX para datas futuras. A solução é voltada a instituições financeiras e sistemas bancários que necessitam de um controle automatizado, auditável e escalável para este tipo de operação.
+- **Experience**: Controllers REST que expõem os endpoints da API
+- **Process**: Serviços de negócio que implementam a lógica da aplicação
+- **System**: Entidades JPA e repositórios para persistência de dados
+- **Common**: DTOs e mappers compartilhados entre as camadas
 
-A aplicação foi estruturada em uma arquitetura de microsserviço com camadas bem definidas.
+## Tecnologias Utilizadas
 
----
+- **Quarkus 3.13.0**: Framework Java nativo para cloud
+- **Hibernate ORM + Panache**: Persistência de dados
+- **PostgreSQL**: Banco de dados
+- **Flyway**: Controle de migrações
+- **Lombok**: Redução de boilerplate
+- **MapStruct**: Mapeamento de objetos
+- **JUnit 5**: Testes unitários
+- **REST Assured**: Testes de integração
 
-## 🧩 Principais Componentes
+## Endpoints da API
 
-A aplicação é composta por múltiplos componentes, organizados em camadas de **controle**, **serviço**, **persistência** e **integração externa**:
+### Agendamentos PIX
 
-### 🎯 Controllers
-- **Auth Controller**: Recebe requisições de autenticação para uso da API.
-- **Pix Scheduler Controller**: Interface HTTP para criação, consulta e cancelamento de agendamentos.
-- **Webhook Controller**: Gerencia endpoints de webhooks configurados por clientes.
+- `POST /api/v1/pix/agendamentos` - Criar novo agendamento
+- `GET /api/v1/pix/agendamentos` - Listar todos os agendamentos
+- `GET /api/v1/pix/agendamentos/{id}` - Buscar agendamento por ID
+- `GET /api/v1/pix/agendamentos/status/{status}` - Buscar por status
+- `GET /api/v1/pix/agendamentos/chave/{chavePix}` - Buscar por chave PIX
+- `DELETE /api/v1/pix/agendamentos/{id}` - Cancelar agendamento
 
-### 🔧 Services
-- **Auth Service**: Processa requisições de autenticação.
-- **Pix Scheduler Service**: Processa regras de negócio relacionadas aos agendamentos.
-- **Webhook Service**: Processa o cadastro, atualização e envio de notificações via webhooks.
-- **Batch Service**: Executa rotinas agendadas para verificar e processar pagamentos com data/hora vencida.
+### Pagamentos PIX
 
-### 🧱 Repositórios
-- **Auth Repository**: Responsável por armazenar tokens e acessos (se necessário).
-- **Pix Scheduler Repository**: Persistência dos agendamentos.
-- **Webhooks Repository**: Persistência dos webhooks cadastrados por clientes.
+- `POST /api/v1/pix/pagamentos` - Processar pagamento PIX imediato
 
-### 🌐 Integrações
-- **Pagamento Client**: Responsável por enviar requisições HTTP para a instituição financeira, efetuando o pagamento agendado.
+## Configuração do Banco de Dados
 
----
+1. Instale o PostgreSQL
+2. Crie o banco de dados:
+```sql
+CREATE DATABASE pix_scheduler;
+CREATE USER pix_user WITH PASSWORD 'pix_password';
+GRANT ALL PRIVILEGES ON DATABASE pix_scheduler TO pix_user;
+```
 
-## 🧠 Fluxo de Execução
+3. Configure as credenciais no `application.properties`
 
-1. O usuário realiza a **autenticação** via `AuthController`.
-2. O cliente agenda um pagamento via `PixSchedulerController`.
-3. A requisição é processada e salva no banco de dados PostgreSQL.
-4. Um **agendador interno** (`BatchService`) verifica periodicamente os agendamentos pendentes.
-5. Quando a data/hora de um agendamento expira, o serviço chama o **PagamentoClient** para executar o PIX.
-6. Caso webhooks estejam configurados, eles são **notificados** via `WebhookService`.
+## Executando a Aplicação
 
----
+### Desenvolvimento
+```bash
+./mvnw quarkus:dev
+```
 
-## 💻 Tecnologias Utilizadas
+### Produção
+```bash
+./mvnw clean package
+java -jar target/quarkus-app/quarkus-run.jar
+```
 
-| Tecnologia           | Finalidade                            |
-|----------------------|----------------------------------------|
-| **Java 21**          | Linguagem principal                    |
-| **Quarkus**          | Framework leve e performático          |
-| **PostgreSQL**       | Armazenamento dos agendamentos         |
-| **Docker**           | Empacotamento da aplicação             |
-| **Kafka (futuro)**   | Mensageria e eventos                   |
-| **Auth 2.0**         | Autenticação e autorização             |
-| **Swagger/OpenAPI**  | Documentação automática da API         |
-| **JUnit/Testcontainers** | Testes automatizados               |
+## Executando os Testes
 
----
+```bash
+./mvnw test
+```
 
-## 🧪 Funcionalidades da API
+## Funcionalidades
 
-- ✅ Autenticação de usuários
-- ✅ Agendamento de pagamentos PIX
-- ✅ Consulta e cancelamento de agendamentos
-- ✅ Cadastro de webhooks para notificações
-- ✅ Execução automática de pagamentos
-- ✅ Envio de notificações via webhook
-- ✅ Logs e rastreabilidade
+### Agendamento de PIX
+- Criação de agendamentos com data e hora específicas
+- Validação de dados de entrada
+- Controle de status (AGENDADO, PROCESSANDO, PROCESSADO, ERRO, CANCELADO)
 
----
+### Processamento Automático
+- Scheduler que executa a cada minuto
+- Processamento automático de agendamentos vencidos
+- Geração de códigos de transação únicos
+- Geração de QR Code PIX
 
-## 🧱 Arquitetura (Modelo de Componentes)
+### Pagamento Imediato
+- Processamento de pagamentos PIX em tempo real
+- Geração de QR Code para pagamento
+- Retorno de dados da transação
 
-![Context Diagram](docs/arquitetura-componentes.png)
-![Container Diagram](docs/arquitetura-componentes.png)
-![Component Diagram](docs/arquitetura-componentes.png)
+## Estrutura do Projeto
 
-> O diagrama acima representa os principais componentes da API e suas interações com banco de dados e sistemas externos (como a instituição financeira).
+```
+src/
+├── main/
+│   ├── java/br/com/wmscode/
+│   │   ├── common/
+│   │   │   ├── dto/           # DTOs de requisição e resposta
+│   │   │   └── mapper/        # Mappers MapStruct
+│   │   ├── experience/
+│   │   │   └── controller/    # Controllers REST
+│   │   ├── process/
+│   │   │   └── service/       # Serviços de negócio
+│   │   └── system/
+│   │       ├── entity/        # Entidades JPA
+│   │       └── repository/    # Repositórios
+│   └── resources/
+│       ├── application.properties
+│       └── db/migration/      # Migrações Flyway
+└── test/
+    └── java/br/com/wmscode/
+        ├── process/service/    # Testes unitários
+        └── experience/controller/ # Testes de integração
+```
 
----
+## Documentação da API
 
-## 📂 Estrutura de Pastas (proposta)
+Acesse a documentação Swagger em: http://localhost:8080/q/swagger-ui
+
+## Status dos Agendamentos
+
+- **AGENDADO**: Agendamento criado, aguardando processamento
+- **PROCESSANDO**: Agendamento sendo processado
+- **PROCESSADO**: Pagamento realizado com sucesso
+- **ERRO**: Erro durante o processamento
+- **CANCELADO**: Agendamento cancelado pelo usuário
 

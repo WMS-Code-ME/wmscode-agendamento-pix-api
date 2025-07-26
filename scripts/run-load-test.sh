@@ -15,7 +15,7 @@ NC='\033[0m' # No Color
 # Configurações
 API_URL="http://localhost:8081"
 DURATION=5
-PYTHON_SCRIPT="load-test.py"
+PYTHON_SCRIPT="$(dirname "$0")/load-test.py"
 
 echo -e "${BLUE}🚀 Teste de Carga - API de Agendamentos PIX${NC}"
 echo -e "${BLUE}============================================${NC}"

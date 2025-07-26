@@ -138,7 +138,7 @@ def quick_test():
     print("\n" + "=" * 50)
     print("✅ Teste rápido concluído com sucesso!")
     print("🎯 Todos os endpoints principais estão funcionando")
-    print("🚀 Execute './run-load-test.sh' para o teste de carga completo")
+    print("🚀 Execute './scripts/run-load-test.sh' para o teste de carga completo")
 
 if __name__ == "__main__":
     quick_test() 

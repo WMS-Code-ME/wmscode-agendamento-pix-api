@@ -16,7 +16,7 @@ Este diretório contém scripts para executar testes de carga na API de Agendame
 ### Opção 1: Script Automatizado (Recomendado)
 
 ```bash
-./run-load-test.sh
+./scripts/run-load-test.sh
 ```
 
 Este script:
@@ -35,7 +35,7 @@ mvn quarkus:dev -Dquarkus.profile=load-test
 
 2. **Executar teste de carga:**
 ```bash
-python3 load-test.py --url http://localhost:8081 --duration 5
+python3 scripts/load-test.py --url http://localhost:8081 --duration 5
 ```
 
 ## 📊 Endpoints Testados
@@ -119,26 +119,26 @@ O teste gera relatórios detalhados incluindo:
 ### Alterar Duração do Teste
 
 ```bash
-# Via script automatizado (editar run-load-test.sh)
+# Via script automatizado (editar scripts/run-load-test.sh)
 DURATION=10
 
 # Via linha de comando
-python3 load-test.py --duration 10
+python3 scripts/load-test.py --duration 10
 ```
 
 ### Alterar URL da API
 
 ```bash
-# Via script automatizado (editar run-load-test.sh)
+# Via script automatizado (editar scripts/run-load-test.sh)
 API_URL="http://localhost:8082"
 
 # Via linha de comando
-python3 load-test.py --url http://localhost:8082
+python3 scripts/load-test.py --url http://localhost:8082
 ```
 
 ### Alterar Rate Limit
 
-Editar `load-test.py`:
+Editar `scripts/load-test.py`:
 ```python
 self.max_requests_per_minute = 100  # Alterar para 100 requests/min
 ```
@@ -185,7 +185,7 @@ python3 --version
 ### Erro: "Rate limit atingido"
 - Normal durante o teste
 - O script aguarda automaticamente
-- Pode aumentar o limite editando `load-test.py`
+- Pode aumentar o limite editando `scripts/load-test.py`
 
 ### Performance Baixa
 - Verificar recursos do sistema (CPU, RAM)
@@ -195,9 +195,12 @@ python3 --version
 ## 📁 Estrutura de Arquivos
 
 ```
-├── load-test.py                    # Script principal de teste de carga
-├── run-load-test.sh               # Script automatizado de execução
-├── README-LOAD-TEST.md            # Este arquivo
+├── scripts/
+│   ├── load-test.py                    # Script principal de teste de carga
+│   ├── quick-test.py                   # Script de teste rápido
+│   └── run-load-test.sh               # Script automatizado de execução
+├── docs/
+│   └── README-LOAD-TEST.md            # Este arquivo
 └── src/test/resources/
     └── application-load-test.properties  # Configuração H2 para testes
 ```

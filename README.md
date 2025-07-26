@@ -11,6 +11,18 @@ A aplicação segue uma arquitetura em camadas:
 - **System**: Entidades JPA e repositórios para persistência de dados
 - **Common**: DTOs e mappers compartilhados entre as camadas
 
+### Diagramas de Arquitetura
+
+#### Modelo C4
+- [**Contexto**](docs/diagramas/arquitetura/Contexto.png) - Visão geral do sistema e suas interações externas
+- [**Containers**](docs/diagramas/arquitetura/Conteiners.png) - Componentes de alto nível da aplicação
+- [**Componentes**](docs/diagramas/arquitetura/Componentes.png) - Estrutura interna dos containers
+
+#### Diagramas de Sequência
+- [**Agendamento PIX**](docs/diagramas/sequencia/Agendamento%20Pix.png) - Fluxo de criação de agendamento
+- [**Autenticação**](docs/diagramas/sequencia/Autenticação.png) - Processo de autenticação e autorização
+- [**Envio Pagamento**](docs/diagramas/sequencia/Envio%20Pagamento.png) - Fluxo de processamento de pagamento
+
 ## Tecnologias Utilizadas
 
 - **Quarkus 3.13.0**: Framework Java nativo para cloud
@@ -74,12 +86,12 @@ Para executar testes de carga na API:
 
 ### Teste Rápido (Verificação)
 ```bash
-python3 quick-test.py
+python3 scripts/quick-test.py
 ```
 
 ### Teste de Carga Completo
 ```bash
-./run-load-test.sh
+./scripts/run-load-test.sh
 ```
 
 **Características:**
@@ -88,7 +100,7 @@ python3 quick-test.py
 - ✅ Teste de todos os endpoints principais
 - ✅ Relatórios detalhados no console
 
-**Para mais detalhes, consulte:** [README-LOAD-TEST.md](README-LOAD-TEST.md)
+**Para mais detalhes, consulte:** [Teste de Carga](docs/README-LOAD-TEST.md)
 
 ## Funcionalidades
 

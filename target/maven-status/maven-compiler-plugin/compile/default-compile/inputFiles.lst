@@ -1,5 +1,3 @@
-/home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/AuthClientRequest.java
-/home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/AuthClientResponse.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/AuthRequest.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/AuthResponse.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/PagamentoWebhookRequest.java
@@ -7,7 +5,6 @@
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/PixAgendamentoResponse.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/WebhookRequest.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/dto/WebhookResponse.java
-/home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/mapper/AuthMapper.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/mapper/PixAgendamentoMapper.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/common/mapper/WebhookMapper.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/experience/controller/AuthController.java
@@ -19,9 +16,9 @@
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/process/service/BatchService.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/process/service/PixAgendamentoService.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/process/service/WebhookService.java
-/home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/entity/AuthClient.java
+/home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/entity/AuthToken.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/entity/PixAgendamento.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/entity/Webhook.java
-/home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/repository/AuthRepository.java
+/home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/repository/AuthTokenRepository.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/repository/PixAgendamentoRepository.java
 /home/silvonei/workspace/personal/wmscode-agendamento-pix-api/src/main/java/br/com/wmscode/system/repository/WebhookRepository.java

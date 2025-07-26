@@ -50,7 +50,9 @@ public class WebhookService {
         LOG.info("Atualizando webhook ID: " + id);
         
         Webhook webhook = webhookRepository.findByIdOptional(id)
-                .orElseThrow(() -> new WebApplicationException("Webhook não encontrado", Response.Status.NOT_FOUND));
+                .orElseThrow(() -> new WebApplicationException(
+                    "Webhook não encontrado",
+                    Response.Status.NOT_FOUND));
         
         // Validar se já existe outro webhook ativo para este evento (excluindo o atual)
         if (webhookRepository.existsAtivoPorEventoExcluindoId(request.getEvento(), id)) {

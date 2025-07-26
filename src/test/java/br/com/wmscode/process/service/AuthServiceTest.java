@@ -1,21 +1,12 @@
 package br.com.wmscode.process.service;
 
-import br.com.wmscode.common.dto.AuthClientRequest;
-import br.com.wmscode.common.dto.AuthClientResponse;
-import br.com.wmscode.common.dto.AuthRequest;
-import br.com.wmscode.common.dto.AuthResponse;
-import br.com.wmscode.system.entity.AuthClient;
-import br.com.wmscode.system.repository.AuthRepository;
+import br.com.wmscode.system.entity.AuthToken;
+import br.com.wmscode.system.repository.AuthTokenRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.BadRequestException;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.WebApplicationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,249 +17,101 @@ public class AuthServiceTest {
     AuthService authService;
     
     @Inject
-    AuthRepository authRepository;
+    AuthTokenRepository authTokenRepository;
     
     @BeforeEach
     @Transactional
     void setUp() {
         // Limpar dados antes de cada teste
-        authRepository.deleteAll();
+        authTokenRepository.deleteAll();
     }
     
     @Test
     @Transactional
     public void testAuthenticateWithDefaultClient() {
         // Teste com cliente padrão configurado
-        AuthRequest request = new AuthRequest();
-        request.setClientId("dev-client");
-        request.setClientSecret("dev-secret-123");
+        String clientId = "dev-client";
+        String clientSecret = "dev-secret-123";
         
-        AuthResponse response = authService.authenticate(request);
+        String token = authService.authenticateAndGenerateToken(clientId, clientSecret);
         
-        assertNotNull(response);
-        assertNotNull(response.getAccessToken());
-        assertEquals("Bearer", response.getTokenType());
-        assertEquals("dev-client", response.getClientId());
-        assertEquals("Cliente Padrão", response.getClientName());
-        assertNotNull(response.getExpiresAt());
-        assertTrue(response.getExpiresIn() > 0);
-    }
-    
-    @Test
-    @Transactional
-    public void testAuthenticateWithDatabaseClient() {
-        // Criar cliente no banco
-        AuthClientRequest clientRequest = new AuthClientRequest();
-        clientRequest.setClientId("test-client");
-        clientRequest.setClientSecret("test-secret");
-        clientRequest.setNome("Cliente de Teste");
-        clientRequest.setDescricao("Cliente para testes");
+        assertNotNull(token);
+        assertTrue(token.contains(".")); // Verifica se é um JWT válido (tem pontos)
         
-        authService.createClient(clientRequest);
-        
-        // Testar autenticação
-        AuthRequest authRequest = new AuthRequest();
-        authRequest.setClientId("test-client");
-        authRequest.setClientSecret("test-secret");
-        
-        AuthResponse response = authService.authenticate(authRequest);
-        
-        assertNotNull(response);
-        assertNotNull(response.getAccessToken());
-        assertEquals("test-client", response.getClientId());
-        assertEquals("Cliente de Teste", response.getClientName());
+        // Verificar se o token foi salvo no banco
+        assertTrue(authService.isValidToken(token));
     }
     
     @Test
     @Transactional
     public void testAuthenticateWithInvalidCredentials() {
-        AuthRequest request = new AuthRequest();
-        request.setClientId("invalid-client");
-        request.setClientSecret("invalid-secret");
+        String clientId = "invalid-client";
+        String clientSecret = "invalid-secret";
         
-        assertThrows(WebApplicationException.class, () -> {
-            authService.authenticate(request);
+        assertThrows(IllegalArgumentException.class, () -> {
+            authService.authenticateAndGenerateToken(clientId, clientSecret);
         });
     }
     
     @Test
     @Transactional
-    public void testCreateClient() {
-        AuthClientRequest request = new AuthClientRequest();
-        request.setClientId("new-client");
-        request.setClientSecret("new-secret");
-        request.setNome("Novo Cliente");
-        request.setDescricao("Descrição do novo cliente");
+    public void testTokenValidation() {
+        // Gerar token válido
+        String clientId = "dev-client";
+        String clientSecret = "dev-secret-123";
+        String token = authService.authenticateAndGenerateToken(clientId, clientSecret);
         
-        AuthClientResponse response = authService.createClient(request);
+        // Verificar se o token é válido
+        assertTrue(authService.isValidToken(token));
         
-        assertNotNull(response);
-        assertEquals("new-client", response.getClientId());
-        assertEquals("Novo Cliente", response.getNome());
-        assertEquals("Descrição do novo cliente", response.getDescricao());
-        assertEquals("ATIVO", response.getStatus());
-        assertNotNull(response.getDataCriacao());
+        // Verificar se token inválido retorna false
+        assertFalse(authService.isValidToken("invalid-token"));
+        assertFalse(authService.isValidToken(null));
+        assertFalse(authService.isValidToken(""));
     }
     
     @Test
     @Transactional
-    public void testCreateClientWithDuplicateClientId() {
-        // Criar primeiro cliente
-        AuthClientRequest request1 = new AuthClientRequest();
-        request1.setClientId("duplicate-client");
-        request1.setClientSecret("secret1");
-        request1.setNome("Cliente 1");
+    public void testTokenExpiration() {
+        // Gerar token
+        String clientId = "dev-client";
+        String clientSecret = "dev-secret-123";
+        String token = authService.authenticateAndGenerateToken(clientId, clientSecret);
         
-        authService.createClient(request1);
+        // Verificar se o token foi salvo no banco
+        assertTrue(authService.isValidToken(token));
         
-        // Tentar criar segundo cliente com mesmo client_id
-        AuthClientRequest request2 = new AuthClientRequest();
-        request2.setClientId("duplicate-client");
-        request2.setClientSecret("secret2");
-        request2.setNome("Cliente 2");
+        // Buscar o token no banco e verificar se tem data de expiração
+        var tokenOpt = authTokenRepository.findByActiveToken(token);
+        assertTrue(tokenOpt.isPresent());
         
-        assertThrows(BadRequestException.class, () -> {
-            authService.createClient(request2);
-        });
+        AuthToken authToken = tokenOpt.get();
+        assertNotNull(authToken.getExpiresAt());
+        assertNotNull(authToken.getCreatedAt());
+        assertEquals(clientId, authToken.getClientId());
+        assertEquals("Cliente Padrão", authToken.getClientName());
+        assertEquals(AuthToken.StatusToken.ATIVO, authToken.getStatus());
     }
     
     @Test
     @Transactional
-    public void testListAllClients() {
-        // Criar alguns clientes
-        AuthClientRequest request1 = new AuthClientRequest();
-        request1.setClientId("client1");
-        request1.setClientSecret("secret1");
-        request1.setNome("Cliente 1");
+    public void testTokenInactivation() {
+        // Gerar token
+        String clientId = "dev-client";
+        String clientSecret = "dev-secret-123";
+        String token = authService.authenticateAndGenerateToken(clientId, clientSecret);
         
-        AuthClientRequest request2 = new AuthClientRequest();
-        request2.setClientId("client2");
-        request2.setClientSecret("secret2");
-        request2.setNome("Cliente 2");
+        // Verificar se o token é válido
+        assertTrue(authService.isValidToken(token));
         
-        authService.createClient(request1);
-        authService.createClient(request2);
+        // Buscar o token no banco
+        var tokenOpt = authTokenRepository.findByActiveToken(token);
+        assertTrue(tokenOpt.isPresent());
         
-        List<AuthClientResponse> clients = authService.listAllClients();
+        // Inativar o token
+        authService.inactivateToken(tokenOpt.get());
         
-        assertEquals(2, clients.size());
-        assertTrue(clients.stream().anyMatch(c -> c.getClientId().equals("client1")));
-        assertTrue(clients.stream().anyMatch(c -> c.getClientId().equals("client2")));
-    }
-    
-    @Test
-    @Transactional
-    public void testGetClientById() {
-        // Criar cliente
-        AuthClientRequest request = new AuthClientRequest();
-        request.setClientId("test-client");
-        request.setClientSecret("test-secret");
-        request.setNome("Cliente de Teste");
-        
-        AuthClientResponse created = authService.createClient(request);
-        
-        // Buscar por ID
-        AuthClientResponse found = authService.getClientById(created.getId());
-        
-        assertNotNull(found);
-        assertEquals(created.getId(), found.getId());
-        assertEquals("test-client", found.getClientId());
-        assertEquals("Cliente de Teste", found.getNome());
-    }
-    
-    @Test
-    @Transactional
-    public void testGetClientByIdNotFound() {
-        assertThrows(NotFoundException.class, () -> {
-            authService.getClientById(999L);
-        });
-    }
-    
-    @Test
-    @Transactional
-    public void testUpdateClient() {
-        // Criar cliente
-        AuthClientRequest createRequest = new AuthClientRequest();
-        createRequest.setClientId("update-client");
-        createRequest.setClientSecret("old-secret");
-        createRequest.setNome("Cliente Antigo");
-        
-        AuthClientResponse created = authService.createClient(createRequest);
-        
-        // Atualizar cliente
-        AuthClientRequest updateRequest = new AuthClientRequest();
-        updateRequest.setClientId("update-client-new");
-        updateRequest.setClientSecret("new-secret");
-        updateRequest.setNome("Cliente Atualizado");
-        updateRequest.setDescricao("Nova descrição");
-        
-        AuthClientResponse updated = authService.updateClient(created.getId(), updateRequest);
-        
-        assertNotNull(updated);
-        assertEquals("update-client-new", updated.getClientId());
-        assertEquals("Cliente Atualizado", updated.getNome());
-        assertEquals("Nova descrição", updated.getDescricao());
-        assertNotNull(updated.getDataAtualizacao());
-    }
-    
-    @Test
-    @Transactional
-    public void testInactivateClient() {
-        // Criar cliente
-        AuthClientRequest request = new AuthClientRequest();
-        request.setClientId("inactivate-client");
-        request.setClientSecret("secret");
-        request.setNome("Cliente para Inativar");
-        
-        AuthClientResponse created = authService.createClient(request);
-        assertEquals("ATIVO", created.getStatus());
-        
-        // Inativar cliente
-        authService.inactivateClient(created.getId());
-        
-        AuthClientResponse inactivated = authService.getClientById(created.getId());
-        assertEquals("INATIVO", inactivated.getStatus());
-    }
-    
-    @Test
-    @Transactional
-    public void testActivateClient() {
-        // Criar cliente
-        AuthClientRequest request = new AuthClientRequest();
-        request.setClientId("activate-client");
-        request.setClientSecret("secret");
-        request.setNome("Cliente para Ativar");
-        
-        AuthClientResponse created = authService.createClient(request);
-        
-        // Inativar primeiro
-        authService.inactivateClient(created.getId());
-        AuthClientResponse inactivated = authService.getClientById(created.getId());
-        assertEquals("INATIVO", inactivated.getStatus());
-        
-        // Ativar novamente
-        authService.activateClient(created.getId());
-        AuthClientResponse activated = authService.getClientById(created.getId());
-        assertEquals("ATIVO", activated.getStatus());
-    }
-    
-    @Test
-    @Transactional
-    public void testDeleteClient() {
-        // Criar cliente
-        AuthClientRequest request = new AuthClientRequest();
-        request.setClientId("delete-client");
-        request.setClientSecret("secret");
-        request.setNome("Cliente para Deletar");
-        
-        AuthClientResponse created = authService.createClient(request);
-        
-        // Deletar cliente
-        authService.deleteClient(created.getId());
-        
-        // Verificar se foi deletado
-        assertThrows(NotFoundException.class, () -> {
-            authService.getClientById(created.getId());
-        });
+        // Verificar se o token não é mais válido
+        assertFalse(authService.isValidToken(token));
     }
 } 

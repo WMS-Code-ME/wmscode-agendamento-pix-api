@@ -1,7 +1,6 @@
 package br.com.wmscode.experience.controller;
 
 import br.com.wmscode.common.dto.WebhookRequest;
-import br.com.wmscode.common.dto.WebhookResponse;
 import br.com.wmscode.system.entity.Webhook;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -9,8 +8,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
@@ -43,7 +40,7 @@ public class WebhookControllerTest {
             .contentType(ContentType.JSON)
             .body(request)
         .when()
-            .post("/api/webhooks")
+            .post("/api/v1/webhooks")
         .then()
             .statusCode(201)
             .body("url", equalTo(request.getUrl()))
@@ -73,7 +70,7 @@ public class WebhookControllerTest {
             .contentType(ContentType.JSON)
             .body(request1)
         .when()
-            .post("/api/webhooks")
+            .post("/api/v1/webhooks")
         .then()
             .statusCode(201);
         
@@ -82,7 +79,7 @@ public class WebhookControllerTest {
             .contentType(ContentType.JSON)
             .body(request2)
         .when()
-            .post("/api/webhooks")
+            .post("/api/v1/webhooks")
         .then()
             .statusCode(409);
     }
@@ -100,7 +97,7 @@ public class WebhookControllerTest {
             .contentType(ContentType.JSON)
             .body(request)
         .when()
-            .post("/api/webhooks")
+            .post("/api/v1/webhooks")
         .then()
             .statusCode(201)
             .extract()
@@ -109,7 +106,7 @@ public class WebhookControllerTest {
         // Buscar webhook
         given()
         .when()
-            .get("/api/webhooks/" + id)
+            .get("/api/v1/webhooks/" + id)
         .then()
             .statusCode(200)
             .body("id", equalTo(id))
@@ -129,14 +126,14 @@ public class WebhookControllerTest {
             .contentType(ContentType.JSON)
             .body(request)
         .when()
-            .post("/api/webhooks")
+            .post("/api/v1/webhooks")
         .then()
             .statusCode(201);
         
         // Listar webhooks
         given()
         .when()
-            .get("/api/webhooks")
+            .get("/api/v1/webhooks")
         .then()
             .statusCode(200)
             .body("size()", greaterThan(0));
@@ -155,7 +152,7 @@ public class WebhookControllerTest {
             .contentType(ContentType.JSON)
             .body(request)
         .when()
-            .post("/api/webhooks")
+            .post("/api/v1/webhooks")
         .then()
             .statusCode(201)
             .extract()
@@ -164,14 +161,14 @@ public class WebhookControllerTest {
         // Inativar primeiro
         given()
         .when()
-            .put("/api/webhooks/" + id + "/inativar")
+            .put("/api/v1/webhooks/" + id + "/inativar")
         .then()
             .statusCode(200);
         
         // Ativar novamente
         given()
         .when()
-            .put("/api/webhooks/" + id + "/ativar")
+            .put("/api/v1/webhooks/" + id + "/ativar")
         .then()
             .statusCode(200)
             .body("status", equalTo(Webhook.StatusWebhook.ATIVO.toString()));

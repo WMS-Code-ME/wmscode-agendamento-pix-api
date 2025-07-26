@@ -4,14 +4,12 @@ import br.com.wmscode.common.dto.PagamentoWebhookRequest;
 import br.com.wmscode.process.client.PagamentoClient;
 import br.com.wmscode.system.entity.PixAgendamento;
 import br.com.wmscode.system.entity.Webhook;
+import br.com.wmscode.system.repository.PixAgendamentoRepository;
+import br.com.wmscode.system.repository.WebhookRepository;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.jboss.logging.Logger;
@@ -26,11 +24,14 @@ public class BatchService {
     
     private static final Logger LOG = Logger.getLogger(BatchService.class);
     
+    private final PixAgendamentoRepository agendamentoRepository;
+    private final WebhookRepository webhookRepository;
+
     @Inject
-    br.com.wmscode.system.repository.PixAgendamentoRepository agendamentoRepository;
-    
-    @Inject
-    br.com.wmscode.system.repository.WebhookRepository webhookRepository;
+    public BatchService(PixAgendamentoRepository agendamentoRepository, WebhookRepository webhookRepository) {
+        this.agendamentoRepository = agendamentoRepository;
+        this.webhookRepository = webhookRepository;
+    }
     
     /**
      * Executa uma vez por dia às 8h da manhã para processar agendamentos do dia

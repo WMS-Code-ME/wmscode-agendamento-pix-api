@@ -68,6 +68,28 @@ java -jar target/quarkus-app/quarkus-run.jar
 ./mvnw test
 ```
 
+## Teste de Carga
+
+Para executar testes de carga na API:
+
+### Teste Rápido (Verificação)
+```bash
+python3 quick-test.py
+```
+
+### Teste de Carga Completo
+```bash
+./run-load-test.sh
+```
+
+**Características:**
+- ✅ Limite de 50 requests por minuto
+- ✅ Banco H2 em memória (isolamento completo)
+- ✅ Teste de todos os endpoints principais
+- ✅ Relatórios detalhados no console
+
+**Para mais detalhes, consulte:** [README-LOAD-TEST.md](README-LOAD-TEST.md)
+
 ## Funcionalidades
 
 ### Agendamento de PIX

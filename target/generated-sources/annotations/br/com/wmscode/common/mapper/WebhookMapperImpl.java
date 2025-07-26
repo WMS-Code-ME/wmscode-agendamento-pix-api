@@ -8,8 +8,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-26T10:30:46-0300",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-07-26T10:58:36-0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.8 (Ubuntu)"
 )
 @ApplicationScoped
 public class WebhookMapperImpl implements WebhookMapper {
@@ -43,15 +43,15 @@ public class WebhookMapperImpl implements WebhookMapper {
 
         WebhookResponse webhookResponse = new WebhookResponse();
 
-        webhookResponse.setBody( entity.getBody() );
-        webhookResponse.setDataAtualizacao( entity.getDataAtualizacao() );
-        webhookResponse.setDataCriacao( entity.getDataCriacao() );
-        webhookResponse.setDescricao( entity.getDescricao() );
-        webhookResponse.setEvento( entity.getEvento() );
         webhookResponse.setId( entity.id );
-        webhookResponse.setLogin( entity.getLogin() );
-        webhookResponse.setStatus( entity.getStatus() );
         webhookResponse.setUrl( entity.getUrl() );
+        webhookResponse.setLogin( entity.getLogin() );
+        webhookResponse.setDescricao( entity.getDescricao() );
+        webhookResponse.setBody( entity.getBody() );
+        webhookResponse.setEvento( entity.getEvento() );
+        webhookResponse.setStatus( entity.getStatus() );
+        webhookResponse.setDataCriacao( entity.getDataCriacao() );
+        webhookResponse.setDataAtualizacao( entity.getDataAtualizacao() );
 
         return webhookResponse;
     }
